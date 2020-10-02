@@ -3,6 +3,7 @@
         "runtime": "org.gnome.Platform",
         "runtime-version": "3.36",
         "sdk": "org.gnome.Sdk",
+        "sdk-extensions": ["org.freedesktop.Sdk.Extension.rust-stable"],
         "command": "evolution",
         "rename-icon": "evolution",
         "copy-icon": true,
@@ -36,6 +37,24 @@
             "--filesystem=~/.gnupg:rw"
         ],
         "modules": [
+            {
+                "name": "evolution-etesync",
+                "buildsystem": "simple",
+                "no-autogen": true,
+                "build-options" : { 
+                    "append-path": "/usr/lib/sdk/rust-stable/bin"
+                    },
+                "sources": [
+            	    {
+            	        "type": "archive",
+            	        "url": "https://github.com/etesync/etebase-rs/archive/legacy.zip",
+            	        "sha256": "8f4c5878b84384d758af40dee04dfc85c362d6b4a82ea54bf57ad79509588b7b"
+            	    }
+            	 ],
+            	"build-commands": [
+            	    "cargo build --offline"
+            	    ]
+            },    
             {
 			"name": "intltool",
 			"cleanup": [ "*" ],
@@ -399,6 +418,6 @@
                         "sha256": "59bf59cabb9d193d91076972dd8a6e71ebf34c7bfad01cd6954297347a3077b3"
                     }
                 ]
-            }
+            } 
         ]
 }
